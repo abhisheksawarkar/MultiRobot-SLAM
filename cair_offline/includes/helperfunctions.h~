@@ -1,0 +1,17 @@
+
+#include <string>
+#include <vector>
+
+#include <viso_stereo.h>
+#include <vector>
+
+#ifndef _HELPER_FINCTIONS_h
+#define _HELPER_FINCTIONS_h
+
+// To find number of images in a directory
+int listdir(char *dir);
+
+// To find Visual Odometry using libviso2
+void my_libviso2(std::vector<Matrix> &myvec1, std::vector<Matrix> &myvec2, std::string dir, int numImg);
+
+#endif

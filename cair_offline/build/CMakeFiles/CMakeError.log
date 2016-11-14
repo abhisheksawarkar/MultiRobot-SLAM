@@ -1,0 +1,212 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2260297891/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2260297891.dir/build.make CMakeFiles/cmTryCompileExec2260297891.dir/build
+make[1]: Entering directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2260297891.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2260297891.dir/CheckSymbolExists.c.o   -c /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2260297891
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2260297891.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2260297891.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2260297891 -rdynamic 
+CMakeFiles/cmTryCompileExec2260297891.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec2260297891] Error 1
+make[1]: Leaving directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec2260297891/fast] Error 2
+
+File /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3132507603/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3132507603.dir/build.make CMakeFiles/cmTryCompileExec3132507603.dir/build
+make[1]: Entering directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3132507603.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec3132507603.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3132507603
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3132507603.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec3132507603.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3132507603 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec3132507603] Error 1
+make[1]: Leaving directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec3132507603/fast] Error 2
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3475843681/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3475843681.dir/build.make CMakeFiles/cmTryCompileExec3475843681.dir/build
+make[1]: Entering directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3475843681.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3475843681.dir/CheckSymbolExists.c.o   -c /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec3475843681
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3475843681.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3475843681.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3475843681 -rdynamic 
+CMakeFiles/cmTryCompileExec3475843681.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec3475843681] Error 1
+make[1]: Leaving directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec3475843681/fast] Error 2
+
+File /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3107881293/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3107881293.dir/build.make CMakeFiles/cmTryCompileExec3107881293.dir/build
+make[1]: Entering directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3107881293.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec3107881293.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3107881293
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3107881293.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec3107881293.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3107881293 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec3107881293] Error 1
+make[1]: Leaving directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v2/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec3107881293/fast] Error 2
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec3201561653/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3201561653.dir/build.make CMakeFiles/cmTryCompileExec3201561653.dir/build
+make[1]: Entering directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3201561653.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3201561653.dir/CheckSymbolExists.c.o   -c /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec3201561653
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3201561653.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec3201561653.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3201561653 -rdynamic 
+CMakeFiles/cmTryCompileExec3201561653.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec3201561653] Error 1
+make[1]: Leaving directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec3201561653/fast] Error 2
+
+File /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec264717873/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec264717873.dir/build.make CMakeFiles/cmTryCompileExec264717873.dir/build
+make[1]: Entering directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec264717873.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec264717873.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec264717873
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec264717873.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec264717873.dir/CheckFunctionExists.c.o  -o cmTryCompileExec264717873 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec264717873] Error 1
+make[1]: Leaving directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec264717873/fast] Error 2
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec2126401623/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2126401623.dir/build.make CMakeFiles/cmTryCompileExec2126401623.dir/build
+make[1]: Entering directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2126401623.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2126401623.dir/CheckSymbolExists.c.o   -c /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2126401623
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2126401623.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2126401623.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2126401623 -rdynamic 
+CMakeFiles/cmTryCompileExec2126401623.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec2126401623] Error 1
+make[1]: Leaving directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec2126401623/fast] Error 2
+
+File /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec586704623/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec586704623.dir/build.make CMakeFiles/cmTryCompileExec586704623.dir/build
+make[1]: Entering directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec586704623.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec586704623.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec586704623
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec586704623.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec586704623.dir/CheckFunctionExists.c.o  -o cmTryCompileExec586704623 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec586704623] Error 1
+make[1]: Leaving directory `/home/abhishek/iiit/project_final_cpp/3_single_dloop_parallel_v3/build/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec586704623/fast] Error 2
+
+
