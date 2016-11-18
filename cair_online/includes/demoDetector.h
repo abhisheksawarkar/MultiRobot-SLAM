@@ -259,6 +259,7 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
   // go
   for(unsigned int i = 0; i < filenames.size(); ++i)
   {
+    //mythread_comm.g2o_loop_flag = false;
     pthread_mutex_lock(&myMutex1);
     mythread_comm.loop_wait = true;
     pthread_mutex_unlock(&myMutex1);
@@ -271,7 +272,6 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
     cv::Mat color = cv::imread(filenames[i].c_str(), 1); // color
     
     // show image
-    //DUtilsCV::GUI::showImage(im, true, &win, 10);
     imshow("Display window", color);
     waitKey(30);
     cvtColor(color,im,CV_BGR2GRAY);
@@ -291,7 +291,7 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
     if(result.detection())
     {
       cout << "\t\t" << "- Loop found with image " << result.match << "!"
-        << endl;
+      << endl;
       ++count;
       index1.push_back(i);
       index2.push_back(result.match);
@@ -300,14 +300,18 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
       pthread_create(&thread1, &attr1, libviso_relative_thread, (void *)&myviso);
       pthread_join(thread1,NULL);
 
-      //cout << i << " " << result.match << endl;
-      //cout << myviso.relate << endl << endl;
       if(to_consider==true)
       {
-          ss = my_for_g2o_edge(i,result.match,myviso.relate);
-          mywriter.my_write_file << comment + ss + "# Done loop closure\n" << endl;
-          mywriter.g2o_string = mywriter.g2o_string + comment + ss + "# Done loop closure\n";
-          M.push_back(myviso.relate);
+        ss = my_for_g2o_edge(i,result.match,myviso.relate);
+        mywriter.my_write_file << comment + ss + "# Done loop closure\n" << endl;
+        mywriter.g2o_string = mywriter.g2o_string + comment + ss + "# Done loop closure\n";
+
+        pthread_mutex_lock(&myMutex1);
+        mythread_comm.g2o_loop_flag = true;
+        pthread_mutex_unlock(&myMutex1);
+        
+        
+        M.push_back(myviso.relate);
       }
 
       
@@ -362,9 +366,6 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
     mythread_comm.loop_wait = false;
     pthread_mutex_unlock(&myMutex1);
 
-    // cout << "In dloop, dloop flag final " << mythread_comm.loop_wait << endl;
-
-    // cout << "In dloop, viso flag before while: " << mythread_comm.viso_wait_flag << endl;
     while(mythread_comm.viso_wait_flag==true)
     {
     }

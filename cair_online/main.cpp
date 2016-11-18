@@ -33,7 +33,7 @@ using namespace cv;
 #define PI 3.14159265
 
 // Directroy of Images
-string IMG_DIR1 = "/home/abhishek/iiit/Data/oct11_dusshera/loop2/";
+string IMG_DIR1 = "/home/abhishek/iiit/Data/sept_30_junaid/loop1/";
 
 // DLoop resources
 static const string VOC_FILE = "./resources/huskymerge_voc.voc.gz";
@@ -112,7 +112,7 @@ int main()
   pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
   // Number of images in given directory
-  int numImages1 =0, numImages2 =0;
+  int numImages1 =0;
   std::string path1 = IMG_DIR1 + "/left/";
   char * dst1 = new char[path1.length() + 1];
   std::strcpy(dst1,path1.c_str());

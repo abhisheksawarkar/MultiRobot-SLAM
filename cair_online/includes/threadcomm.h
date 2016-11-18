@@ -8,5 +8,6 @@ class comm
 	bool loop_wait = true;
 	bool viso_wait_flag = true;
 	bool loop_write_done = false;
+	bool g2o_loop_flag = false;
 };
 #endif

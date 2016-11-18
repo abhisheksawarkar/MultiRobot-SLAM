@@ -32,11 +32,10 @@ using namespace cv;
 using namespace g2o;
 
 // we use the 2D and 3D SLAM types here
-G2O_USE_TYPE_GROUP(slam2d);
-G2O_USE_TYPE_GROUP(slam3d);
+G2O_USE_TYPE_GROUP(slam2d)
+G2O_USE_TYPE_GROUP(slam3d)
 
 #define PI 3.14159265
-string outputFilename = "data/g2o_output.g2o";
 
 writer mywriter;
 comm mythread_comm;
@@ -118,13 +117,9 @@ struct for_g2o_thread
   mywriter.g2o_string = "";
   mywriter.g2o_string = out;
 
-  //cout << "obj!" << endl;
-  //cout << endl << obj->s1 << endl;
+  cout << "exiting g2o thread!!" << endl;
 
-    //printf("exiting thread:- %ld\n",tid);
-    cout << "exiting g2o thread!!" << endl;
-   // return (void *)obj;
-   // go_flag1 = true;
+  return(void*)obj;
  }
 
 void my_libviso2(std::vector<Matrix> &Tr_local, std::vector<Matrix> &Tr_global, string dir, int numImg) {
@@ -149,172 +144,150 @@ void my_libviso2(std::vector<Matrix> &Tr_local, std::vector<Matrix> &Tr_global, 
   gthread.outfile = outputFilename;
   gthread.maxIterations = 10;
 
-   mywriter.my_write_file.open("data/traj3_loop.g2o");
-   //myfile1.open("data/traj.g2o");
-   string ss;
-  // string ss_total;
-
-
-   mythread_comm.loop_wait = true;
-  // calibration parameters for sequence 2010_03_09_drive_0019 
-  // param.calib.f  = 645.24; // focal length in pixels
-  // param.calib.cu = 635.96; // principal point (u-coordinate) in pixels
-  // param.calib.cv = 194.13; // principal point (v-coordinate) in pixels
-  // param.base     = 0.5707; // baseline in meters
+  mywriter.my_write_file.open("data/offline.g2o");
+  string ss;
+  
+  mythread_comm.loop_wait = true;
   
   // init visual odometry
   VisualOdometryStereo viso(param);
   
-  // current pose (this matrix transforms a point from the current
-  // frame's camera coordinates to the first frame's camera coordinates)
-  // std::vector<Matrix> vector_images1;
-  // std::vector<Matrix> vector_images2;
   Matrix pose = Matrix::eye(4);
   Tr_global.push_back(pose);
   
   Matrix extra_relations;
   bool is_good = false;
 
-  //cout << "upper: " << mythread_comm.loop_wait << endl;
-  // loop through all frames i=0:372
   for (int32_t i=1; i<=numImg; i++) 
   {  
 
-    pthread_mutex_lock(&myMutex);
-    mythread_comm.viso_wait_flag = true;
-    pthread_mutex_unlock(&myMutex);
-    // cout << "In libviso, viso flag intial: " << mythread_comm.viso_wait_flag << endl;
+  pthread_mutex_lock(&myMutex);
+  mythread_comm.viso_wait_flag = true;
+  pthread_mutex_unlock(&myMutex);
 
-    // input file names
-    char base_name[256]; sprintf(base_name,"%04d.jpg",i);
-    string left_img_file_name  = dir + "left/" + base_name;
-    string right_img_file_name = dir + "right/" + base_name;
+  // input file names
+  char base_name[256]; sprintf(base_name,"%04d.jpg",i);
+  string left_img_file_name  = dir + "left/" + base_name;
+  string right_img_file_name = dir + "right/" + base_name;
+  
+  // catch image read/write errors here
+  try 
+  {
+
+    // load left and right input image
+    Mat left_img_src, right_img_src;
+    left_img_src = imread(left_img_file_name,CV_LOAD_IMAGE_COLOR);
+    right_img_src = imread(right_img_file_name,CV_LOAD_IMAGE_COLOR);
+
+    Mat left_img,right_img;
+    cvtColor(left_img_src,left_img,CV_BGR2GRAY);
+    cvtColor(right_img_src,right_img,CV_BGR2GRAY);
     
-    // cout << left_img_file_name << endl;
-    // cout << right_img_file_name << endl;
-    // catch image read/write errors here
-    try {
+    int32_t width  = left_img.cols;
+    int32_t height = left_img.rows;
 
-      // load left and right input image
-      Mat left_img_src, right_img_src;
-      left_img_src = imread(left_img_file_name,CV_LOAD_IMAGE_COLOR);
-      right_img_src = imread(right_img_file_name,CV_LOAD_IMAGE_COLOR);
+    // convert input images to uint8_t buffer
+    uint8_t* left_img_data  = (uint8_t*)malloc(width*height*sizeof(uint8_t));
+    uint8_t* right_img_data = (uint8_t*)malloc(width*height*sizeof(uint8_t));
+    int32_t k=0;
+    for (int32_t row=0; row < left_img.rows; row++) {
+      for (int32_t col=0; col < left_img.cols; col++) {
+        left_img_data[k]  = left_img.at<uchar>(row,col);
+        right_img_data[k] = right_img.at<uchar>(row,col);
+        k++;
+      }
+    }
 
-      Mat left_img,right_img;
-      cvtColor(left_img_src,left_img,CV_BGR2GRAY);
-      cvtColor(right_img_src,right_img,CV_BGR2GRAY);
-      // png::image< png::gray_pixel > left_img(left_img_file_name);
-      // png::image< png::gray_pixel > right_img(right_img_file_name);
+    // status
+    cout << "Processing: Frame: " << i << endl;
+    
+    // compute visual odometry
+    int32_t dims[] = {width,height,width};
+    
+      viso.process(left_img_data,right_img_data,dims);
+      // on success, update current pose
 
-      // image dimensions
-      // int32_t width  = left_img.get_width();
-      // int32_t height = left_img.get_height();
+      Tr_local.push_back(Matrix::inv(viso.getMotion()));
+      
+      ss = my_for_g2o_edge(i,i+1,Matrix::inv(viso.getMotion()));
+      mywriter.my_write_file << ss;
+      mywriter.g2o_string = mywriter.g2o_string + ss;
 
-      int32_t width  = left_img.cols;
-      int32_t height = left_img.rows;
+      if((i%20==0) && (i+5< numImg))
+      {
+        is_good = my_libviso2_relative(extra_relations,i,i+5,dir);
 
-      // convert input images to uint8_t buffer
-      uint8_t* left_img_data  = (uint8_t*)malloc(width*height*sizeof(uint8_t));
-      uint8_t* right_img_data = (uint8_t*)malloc(width*height*sizeof(uint8_t));
-      int32_t k=0;
-      for (int32_t row=0; row < left_img.rows; row++) {
-        for (int32_t col=0; col < left_img.cols; col++) {
-          // left_img_data[k]  = left_img.get_pixel(u,v);
-          // right_img_data[k] = right_img.get_pixel(u,v);
-          left_img_data[k]  = left_img.at<uchar>(row,col);
-          right_img_data[k] = right_img.at<uchar>(row,col);
-          k++;
-        }
+          if(is_good)
+          {
+            ss = my_for_g2o_edge(i,i+5,extra_relations);
+            mywriter.my_write_file << ss;
+            //g2o_string << ss;
+            mywriter.g2o_string = mywriter.g2o_string + ss;
+          }
+
+          cout << "extra!! " << i << " " << i+5 << endl;
       }
 
-      // status
-      cout << "Processing: Frame: " << i << endl;
+      if(i>1)
+      {
+        pose = pose * Matrix::inv(viso.getMotion());
+        Tr_global.push_back(pose);  
+      }
       
-      // compute visual odometry
-      int32_t dims[] = {width,height,width};
-      //==if (viso.process(left_img_data,right_img_data,dims)) {
-      
-        viso.process(left_img_data,right_img_data,dims);
-        // on success, update current pose
 
-        Tr_local.push_back(Matrix::inv(viso.getMotion()));
-        
-        ss = my_for_g2o_edge(i,i+1,Matrix::inv(viso.getMotion()));
-        mywriter.my_write_file << ss;
-        //g2o_string << ss;
-        mywriter.g2o_string = mywriter.g2o_string + ss;
+    // if(i%5==0)
+    //   mywriter.my_write_file.close();
 
-        if((i%20==0) && (i+5< numImg))
-        {
-          is_good = my_libviso2_relative(extra_relations,i,i+5,dir);
+      // // output some statistics
+      // double num_matches = viso.getNumberOfMatches();
+      // double num_inliers = viso.getNumberOfInliers();
+      // cout << ", Matches: " << num_matches;
+      // cout << ", Inliers: " << 100.0*num_inliers/num_matches << " %" << ", Current pose: " << endl;
+      // cout << pose << endl << endl;
 
-            if(is_good)
-            {
-              ss = my_for_g2o_edge(i,i+5,extra_relations);
-              mywriter.my_write_file << ss;
-              //g2o_string << ss;
-              mywriter.g2o_string = mywriter.g2o_string + ss;
-            }
+    // } else {
+    //   cout << " ... failed!" << endl;
+    //   cin.get();
+    // }
 
-            cout << "extra!! " << i << " " << i+5 << endl;
-        }
+    // release uint8_t buffers
+    free(left_img_data);
+    free(right_img_data);
 
-        if((i%500==0) || i==numImg)
-        {
-         
-          //cout << "in function " << gthread.s1 << endl;
-          gthread.s1 =  mywriter.g2o_string + "\nFIX 1\n";;
-          pthread_create(&g2othread, &attr, g2o_thread, (void *)&gthread);
-          pthread_join(g2othread,NULL);
-          //g2o_string.str("");
-           //gthread.s1 = "";
-        }
+  // catch image read errors here
+  } catch (...) {
+    cerr << "ERROR: Couldn't read input files!" << endl;
+    break;
+  } 
 
-        if(i>1)
-        {
-          pose = pose * Matrix::inv(viso.getMotion());
-          Tr_global.push_back(pose);  
-        }
-        
-
-      // if(i%5==0)
-      //   mywriter.my_write_file.close();
-
-        // // output some statistics
-        // double num_matches = viso.getNumberOfMatches();
-        // double num_inliers = viso.getNumberOfInliers();
-        // cout << ", Matches: " << num_matches;
-        // cout << ", Inliers: " << 100.0*num_inliers/num_matches << " %" << ", Current pose: " << endl;
-        // cout << pose << endl << endl;
-
-      // } else {
-      //   cout << " ... failed!" << endl;
-      //   cin.get();
-      // }
-
-      // release uint8_t buffers
-      free(left_img_data);
-      free(right_img_data);
-
-    // catch image read errors here
-    } catch (...) {
-      cerr << "ERROR: Couldn't read input files!" << endl;
-      break;
-    }
-
-    pthread_mutex_lock(&myMutex);
-    mythread_comm.viso_wait_flag = false;
-    pthread_mutex_unlock(&myMutex);
-
-    // cout << "In libviso, viso flag final: " << mythread_comm.viso_wait_flag << endl;
+  // cout << "In libviso, viso flag final: " << mythread_comm.viso_wait_flag << endl;
 
 //    mythread_comm.loop_wait = false;
-    // cout << "In libviso, dloop_wait_flag before while: " << mythread_comm.loop_wait << endl;
-    while(mythread_comm.loop_wait==true)
-    {
+  // cout << "In libviso, dloop_wait_flag before while: " << mythread_comm.loop_wait << endl;
+  while(mythread_comm.loop_wait==true)
+  {
 
-    }
-    // cout << "going after while" << endl;
+  }
+
+  if(((i%500==0) || i==numImg) && mythread_comm.g2o_loop_flag==true) 
+  {
+       
+    //cout << "in function " << gthread.s1 << endl;
+    gthread.s1 =  mywriter.g2o_string + "\nFIX 1\n";;
+    pthread_create(&g2othread, &attr, g2o_thread, (void *)&gthread);
+    pthread_join(g2othread,NULL);
+    
+    pthread_mutex_lock(&myMutex);
+    mythread_comm.g2o_loop_flag = false;
+    pthread_mutex_unlock(&myMutex);
+    //g2o_string.str("");
+     //gthread.s1 = "";
+  }
+
+  pthread_mutex_lock(&myMutex);
+  mythread_comm.viso_wait_flag = false;
+  pthread_mutex_unlock(&myMutex);
+  // cout << "going after while" << endl;
  }
 
 pthread_mutex_destroy(&myMutex);
@@ -324,7 +297,7 @@ pthread_mutex_destroy(&myMutex);
 
 
 ofstream g2o_file;
-g2o_file.open("data/final_g2o.g2o");
+g2o_file.open("data/online.g2o");
 
 g2o_file << mywriter.g2o_string << "\nFIX 1\n";
 g2o_file.close();
@@ -443,7 +416,7 @@ bool my_libviso2_relative(Matrix &Tr_final, int index1, int index2, std::string 
         // cout << ", Inliers: " << inliers_percent << " %" << ", Current pose: " << endl;
         // cout << pose << endl << endl;
 
-         if(j>1 && inliers_percent>30)
+         if(j>1 && inliers_percent>35)
         {
           pose = pose * Matrix::inv(viso.getMotion());
           //r.transform = pose;
@@ -510,7 +483,7 @@ void my_libviso2_relative(std::vector<Tr_relative> &Tr_final, std::vector<int> i
   // std::vector<Matrix> vector_images2;
   
   // loop through all frames i=0:372
-  for (int i=0; i<index1.size(); i++) 
+  for (uint i=0; i<index1.size(); i++) 
   {
 
     Matrix pose = Matrix::eye(4);
