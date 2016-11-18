@@ -13,6 +13,9 @@ Procedure -
 6. make -j5
 7. ./main
 
+
+<-------------------------------->
+
 Source code - main.cpp
 
 Supporting files - src/*.cpp

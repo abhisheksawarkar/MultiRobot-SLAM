@@ -1,10 +1,15 @@
 This program executes Libviso, DLoop and g2o in parallel threads for trajectory estimation and optimization using stereo vision.
 
 Procedure -
+
 1. Install 
+
    a. Libviso2 - http://www.cvlibs.net/software/libviso/
+
    b. DLoop - https://github.com/dorian3d/DLoopDetector (along with DLib and DBow2)
+
    c. g2o - https://github.com/RainerKuemmerle/g2o
+
 
 2. cd cair_online/ 
 3. mkdir build
