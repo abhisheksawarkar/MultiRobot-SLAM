@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../../../../lib/libg2o_solver_slam2d_linear.a  CMakeFiles/solver_slam2d_linear.dir/slam2d_linear.cpp.o CMakeFiles/solver_slam2d_linear.dir/solver_slam2d_linear.cpp.o
+/usr/bin/ranlib ../../../../lib/libg2o_solver_slam2d_linear.a

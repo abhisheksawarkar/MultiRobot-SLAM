@@ -50,11 +50,7 @@ struct for_libviso_relative_thread
 
     to_consider = my_libviso2_relative(obj->relate, obj->ind1, obj->ind2, obj->dir);
     cout << to_consider << endl;
-    //cout << "obj relate!" << endl;
-    //cout << obj->relate << endl << endl;
-    //my_libviso2(obj->Tr_local,obj->Tr_global,obj->imgdir,obj->numimages);
-    //pthread_exit((void*) t);
-    //printf("exiting thread:- %ld\n",tid);
+
     cout << "X RELATIVE thread!!" << endl;
     return (void *)obj;
  }
@@ -149,8 +145,7 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
   (std::vector<Matrix> &M,std::vector<int> &index1, std::vector<int> &index2, const std::string &name, const FeatureExtractor<TDescriptor> &extractor)
 {
   namedWindow( "Display window", WINDOW_AUTOSIZE );
-  cout << "IIIT LoopDetector" << endl 
-    << "Abhishek Siddhant" << endl;
+  cout << "LoopDetector" << endl;
   
   // Set loop detector parameters
   typename TDetector::Parameters params(m_height, m_width);
@@ -246,7 +241,7 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
   // prepare profiler to measure times
   DUtils::Profiler profiler;
   
-  int count = 0;
+  int count = 0, inliercount=0;
   
   //namedWindow( "Image1", WINDOW_AUTOSIZE );
   for_libviso_relative_thread myviso;
@@ -265,7 +260,7 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
     pthread_mutex_unlock(&myMutex1);
     // cout << "In dloop, dloop flag initial: " << mythread_comm.loop_wait << endl;
     
-    cout << "\t\t" << "Adding image " << i << ": " << filenames[i] << "... " << endl;
+    cout << "\t\t" << "Adding image " << i  << "... " << endl;
 
     Mat im;
     // get image
@@ -292,9 +287,9 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
     {
       cout << "\t\t" << "- Loop found with image " << result.match << "!"
       << endl;
-      ++count;
-      index1.push_back(i);
-      index2.push_back(result.match);
+      count++;
+      //index1.push_back(i);
+      //index2.push_back(result.match);
       myviso.ind1 = i;
       myviso.ind2 = result.match;
       pthread_create(&thread1, &attr1, libviso_relative_thread, (void *)&myviso);
@@ -310,8 +305,8 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
         mythread_comm.g2o_loop_flag = true;
         pthread_mutex_unlock(&myMutex1);
         
-        
-        M.push_back(myviso.relate);
+        inliercount++;
+        //M.push_back(myviso.relate);
       }
 
       
@@ -379,7 +374,8 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
   }
   else
   {
-    cout << count << "\t\t" << " loops found in this image sequence!" << endl;
+    cout << "\t\t" << " Total loops found in this image sequence: " << count << endl;
+    cout << "\t\t" << " Loops after inlier filtering in this image sequence: " << inliercount << endl;
   } 
 
   cout << endl << "Execution time:" << endl

@@ -33,7 +33,7 @@ using namespace cv;
 #define PI 3.14159265
 
 // Directroy of Images
-string IMG_DIR1 = "/home/abhishek/iiit/Data/sept_30_junaid/loop1/";
+string IMG_DIR1 = "/home/abhishek/iiit/Data/oct11_dusshera/loop1/";
 
 // DLoop resources
 static const string VOC_FILE = "./resources/huskymerge_voc.voc.gz";

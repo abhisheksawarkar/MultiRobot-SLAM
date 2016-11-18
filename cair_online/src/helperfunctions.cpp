@@ -50,7 +50,7 @@ int listdir(char *dir) {
   struct dirent *dp;
   DIR *fd;
   int counter =0;
-  cout << dir<<endl;
+  //cout << dir<<endl;
 
   if ((fd = opendir(dir)) == NULL) {
     fprintf(stderr, "listdir: can't open %s\n", dir);
@@ -71,7 +71,7 @@ int listdir(char *dir) {
 struct for_g2o_thread
 {
   string s1;
-  string outfile;
+  //string outfile;
   int maxIterations;
 };
 
@@ -141,7 +141,7 @@ void my_libviso2(std::vector<Matrix> &Tr_local, std::vector<Matrix> &Tr_global, 
   pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
   for_g2o_thread gthread;
-  gthread.outfile = outputFilename;
+  //gthread.outfile = outputFilename;
   gthread.maxIterations = 10;
 
   mywriter.my_write_file.open("data/offline.g2o");
@@ -207,7 +207,7 @@ void my_libviso2(std::vector<Matrix> &Tr_local, std::vector<Matrix> &Tr_global, 
       viso.process(left_img_data,right_img_data,dims);
       // on success, update current pose
 
-      Tr_local.push_back(Matrix::inv(viso.getMotion()));
+      //Tr_local.push_back(Matrix::inv(viso.getMotion()));
       
       ss = my_for_g2o_edge(i,i+1,Matrix::inv(viso.getMotion()));
       mywriter.my_write_file << ss;
@@ -231,12 +231,9 @@ void my_libviso2(std::vector<Matrix> &Tr_local, std::vector<Matrix> &Tr_global, 
       if(i>1)
       {
         pose = pose * Matrix::inv(viso.getMotion());
-        Tr_global.push_back(pose);  
+       // Tr_global.push_back(pose);  
       }
       
-
-    // if(i%5==0)
-    //   mywriter.my_write_file.close();
 
       // // output some statistics
       // double num_matches = viso.getNumberOfMatches();
@@ -244,11 +241,6 @@ void my_libviso2(std::vector<Matrix> &Tr_local, std::vector<Matrix> &Tr_global, 
       // cout << ", Matches: " << num_matches;
       // cout << ", Inliers: " << 100.0*num_inliers/num_matches << " %" << ", Current pose: " << endl;
       // cout << pose << endl << endl;
-
-    // } else {
-    //   cout << " ... failed!" << endl;
-    //   cin.get();
-    // }
 
     // release uint8_t buffers
     free(left_img_data);
@@ -260,10 +252,6 @@ void my_libviso2(std::vector<Matrix> &Tr_local, std::vector<Matrix> &Tr_global, 
     break;
   } 
 
-  // cout << "In libviso, viso flag final: " << mythread_comm.viso_wait_flag << endl;
-
-//    mythread_comm.loop_wait = false;
-  // cout << "In libviso, dloop_wait_flag before while: " << mythread_comm.loop_wait << endl;
   while(mythread_comm.loop_wait==true)
   {
 
@@ -321,22 +309,11 @@ bool my_libviso2_relative(Matrix &Tr_final, int index1, int index2, std::string 
   param.calib.cv = 360.7899169921875; // principal point (v-coordinate) in pixels
   param.base     = 0.12; // baseline in meters
 
-
-  // calibration parameters for sequence 2010_03_09_drive_0019 
-  // param.calib.f  = 645.24; // focal length in pixels
-  // param.calib.cu = 635.96; // principal point (u-coordinate) in pixels
-  // param.calib.cv = 194.13; // principal point (v-coordinate) in pixels
-  // param.base     = 0.5707; // baseline in meters
   
   // init visual odometry
   VisualOdometryStereo viso(param);
   
   // current pose (this matrix transforms a point from the current
-  // frame's camera coordinates to the first frame's camera coordinates)
-  // std::vector<Matrix> vector_images1;
-  // std::vector<Matrix> vector_images2;
-  
-  // loop through all frames i=0:372
 
     Matrix pose = Matrix::eye(4);
    // Tr_relative r;
@@ -360,9 +337,6 @@ bool my_libviso2_relative(Matrix &Tr_final, int index1, int index2, std::string 
        // r.frame2 = index2;
       }
         
-      // cout << left_img_file_name << endl;
-      // cout << right_img_file_name << endl;
-      // catch image read/write errors here
       try {
 
       // load left and right input image
@@ -401,8 +375,8 @@ bool my_libviso2_relative(Matrix &Tr_final, int index1, int index2, std::string 
         cout << "Processing: Frame between: " << index1 << '\t' << index2 << endl;
       
         // compute visual odometry
-      int32_t dims[] = {width,height,width};
-      //==if (viso.process(left_img_data,right_img_data,dims)) {
+        int32_t dims[] = {width,height,width};
+      
       
         viso.process(left_img_data,right_img_data,dims);
         // on success, update current pose
@@ -428,11 +402,6 @@ bool my_libviso2_relative(Matrix &Tr_final, int index1, int index2, std::string 
           return true;
           //cout << "i: " << i << '\t' << "j: " << j <<endl << endl;
         }
-
-      // } else {
-      //   cout << " ... failed!" << endl;
-      //   cin.get();
-      // }
 
       // release uint8_t buffers
       free(left_img_data);
@@ -467,22 +436,9 @@ void my_libviso2_relative(std::vector<Tr_relative> &Tr_final, std::vector<int> i
   param.calib.cv = 360.7899169921875; // principal point (v-coordinate) in pixels
   param.base     = 0.12; // baseline in meters
 
-
-  // calibration parameters for sequence 2010_03_09_drive_0019 
-  // param.calib.f  = 645.24; // focal length in pixels
-  // param.calib.cu = 635.96; // principal point (u-coordinate) in pixels
-  // param.calib.cv = 194.13; // principal point (v-coordinate) in pixels
-  // param.base     = 0.5707; // baseline in meters
-  
   // init visual odometry
   VisualOdometryStereo viso(param);
   
-  // current pose (this matrix transforms a point from the current
-  // frame's camera coordinates to the first frame's camera coordinates)
-  // std::vector<Matrix> vector_images1;
-  // std::vector<Matrix> vector_images2;
-  
-  // loop through all frames i=0:372
   for (uint i=0; i<index1.size(); i++) 
   {
 
@@ -549,9 +505,8 @@ void my_libviso2_relative(std::vector<Tr_relative> &Tr_final, std::vector<int> i
         cout << "Processing: Frame between: " << r.frame1 << '\t' << r.frame2 << endl;
       
         // compute visual odometry
-      int32_t dims[] = {width,height,width};
-      //==if (viso.process(left_img_data,right_img_data,dims)) {
-      
+       int32_t dims[] = {width,height,width};
+     
         viso.process(left_img_data,right_img_data,dims);
         // on success, update current pose
 
@@ -572,11 +527,6 @@ void my_libviso2_relative(std::vector<Tr_relative> &Tr_final, std::vector<int> i
 
           cout << "i: " << i << '\t' << "j: " << j <<endl << endl;
         }
-
-      // } else {
-      //   cout << " ... failed!" << endl;
-      //   cin.get();
-      // }
 
       // release uint8_t buffers
       free(left_img_data);

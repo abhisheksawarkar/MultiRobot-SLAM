@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../../../../lib/libg2o_types_sclam2d.a  CMakeFiles/types_sclam2d.dir/edge_se2_sensor_calib.cpp.o CMakeFiles/types_sclam2d.dir/vertex_odom_differential_params.cpp.o CMakeFiles/types_sclam2d.dir/edge_se2_odom_differential_calib.cpp.o CMakeFiles/types_sclam2d.dir/odometry_measurement.cpp.o CMakeFiles/types_sclam2d.dir/types_sclam2d.cpp.o
+/usr/bin/ranlib ../../../../lib/libg2o_types_sclam2d.a

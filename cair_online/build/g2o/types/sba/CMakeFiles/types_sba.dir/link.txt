@@ -1,0 +1,2 @@
+/usr/bin/ar cr ../../../../lib/libg2o_types_sba.a  CMakeFiles/types_sba.dir/types_sba.cpp.o CMakeFiles/types_sba.dir/types_six_dof_expmap.cpp.o
+/usr/bin/ranlib ../../../../lib/libg2o_types_sba.a
