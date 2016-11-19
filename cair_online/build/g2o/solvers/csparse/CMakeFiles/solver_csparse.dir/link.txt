@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../../../lib/libg2o_solver_csparse.a  CMakeFiles/solver_csparse.dir/solver_csparse.cpp.o
-/usr/bin/ranlib ../../../../lib/libg2o_solver_csparse.a

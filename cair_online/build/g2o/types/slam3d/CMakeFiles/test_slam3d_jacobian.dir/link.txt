@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11  -Wall -W    CMakeFiles/test_slam3d_jacobian.dir/test_slam3d_jacobian.cpp.o  -o ../../../test_slam3d_jacobian -rdynamic ../../../../lib/libg2o_types_slam3d.a ../../../../lib/libg2o_core.a ../../../../lib/libg2o_stuff.a -lrt ../../../../lib/libg2o_opengl_helper.a -lGLU -lSM -lICE -lX11 -lXext -lGL 

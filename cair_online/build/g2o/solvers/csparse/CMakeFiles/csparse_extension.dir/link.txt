@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC  -std=c++11  -Wall -W   -shared -Wl,-soname,libg2o_csparse_extension.so -o ../../../../lib/libg2o_csparse_extension.so CMakeFiles/csparse_extension.dir/csparse_helper.cpp.o -lcxsparse 

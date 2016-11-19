@@ -4,7 +4,7 @@ ADD_SUBDIRECTORY(structure_only)
 
 IF(CSPARSE_FOUND)
   ADD_SUBDIRECTORY(csparse)
-  ADD_SUBDIRECTORY(slam2d_linear)
+#  ADD_SUBDIRECTORY(slam2d_linear)
 ENDIF()
 
 IF(CHOLMOD_FOUND)

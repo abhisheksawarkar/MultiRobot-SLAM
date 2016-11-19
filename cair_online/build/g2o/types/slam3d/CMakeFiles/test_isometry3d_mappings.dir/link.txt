@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11  -Wall -W    CMakeFiles/test_isometry3d_mappings.dir/test_isometry3d_mappings.cpp.o  -o ../../../test_isometry3d_mappings -rdynamic ../../../../lib/libg2o_types_slam3d.a ../../../../lib/libg2o_core.a ../../../../lib/libg2o_stuff.a -lrt ../../../../lib/libg2o_opengl_helper.a -lGLU -lSM -lICE -lX11 -lXext -lGL 

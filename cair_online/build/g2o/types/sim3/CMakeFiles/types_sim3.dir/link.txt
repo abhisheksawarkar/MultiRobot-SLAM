@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../../../lib/libg2o_types_sim3.a  CMakeFiles/types_sim3.dir/types_seven_dof_expmap.cpp.o
-/usr/bin/ranlib ../../../../lib/libg2o_types_sim3.a

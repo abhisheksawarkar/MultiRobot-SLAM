@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../../../lib/libg2o_solver_cholmod.a  CMakeFiles/solver_cholmod.dir/solver_cholmod.cpp.o
-/usr/bin/ranlib ../../../../lib/libg2o_solver_cholmod.a

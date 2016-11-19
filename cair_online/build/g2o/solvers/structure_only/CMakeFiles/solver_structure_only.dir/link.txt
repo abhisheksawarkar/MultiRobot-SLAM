@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../../../lib/libg2o_solver_structure_only.a  CMakeFiles/solver_structure_only.dir/structure_only.cpp.o
-/usr/bin/ranlib ../../../../lib/libg2o_solver_structure_only.a

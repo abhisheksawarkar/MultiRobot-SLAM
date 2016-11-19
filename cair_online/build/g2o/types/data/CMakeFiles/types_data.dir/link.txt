@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../../../lib/libg2o_types_data.a  CMakeFiles/types_data.dir/types_data.cpp.o CMakeFiles/types_data.dir/robot_data.cpp.o CMakeFiles/types_data.dir/vertex_tag.cpp.o CMakeFiles/types_data.dir/vertex_ellipse.cpp.o CMakeFiles/types_data.dir/laser_parameters.cpp.o CMakeFiles/types_data.dir/raw_laser.cpp.o CMakeFiles/types_data.dir/robot_laser.cpp.o CMakeFiles/types_data.dir/data_queue.cpp.o
-/usr/bin/ranlib ../../../../lib/libg2o_types_data.a

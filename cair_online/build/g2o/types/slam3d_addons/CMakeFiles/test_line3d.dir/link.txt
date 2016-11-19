@@ -1,1 +1,0 @@
-/usr/bin/c++    -std=c++11  -Wall -W    CMakeFiles/test_line3d.dir/line3d_test.cpp.o  -o ../../../test_line3d -rdynamic ../../../../lib/libg2o_types_slam3d_addons.a ../../../../lib/libg2o_types_slam3d.a ../../../../lib/libg2o_opengl_helper.a -lGLU -lSM -lICE -lX11 -lXext ../../../../lib/libg2o_core.a ../../../../lib/libg2o_stuff.a -lrt -lGL 

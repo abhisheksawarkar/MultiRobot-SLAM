@@ -281,7 +281,7 @@ find_package( Threads REQUIRED )
 SET_TARGET_PROPERTIES(main PROPERTIES OUTPUT_NAME main${EXE_POSTFIX})
 
 TARGET_LINK_LIBRARIES(main core solver_csparse)
-TARGET_LINK_LIBRARIES(main types_slam2d)
-TARGET_LINK_LIBRARIES(main types_slam3d)
+#TARGET_LINK_LIBRARIES(main types_slam2d)
+#TARGET_LINK_LIBRARIES(main types_slam3d)
 target_link_libraries( main ${OpenCV_LIBS} ${DLib_LIBS} ${DBoW2_LIBS} ${CMAKE_THREAD_LIBS_INIT} )
 

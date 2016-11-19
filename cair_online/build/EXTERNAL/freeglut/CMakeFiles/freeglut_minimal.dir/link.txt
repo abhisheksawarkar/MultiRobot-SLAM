@@ -1,2 +1,0 @@
-/usr/bin/ar cr ../../../lib/libg2o_ext_freeglut_minimal.a  CMakeFiles/freeglut_minimal.dir/freeglut_font.cpp.o CMakeFiles/freeglut_minimal.dir/freeglut_stroke_mono_roman.cpp.o CMakeFiles/freeglut_minimal.dir/freeglut_stroke_roman.cpp.o
-/usr/bin/ranlib ../../../lib/libg2o_ext_freeglut_minimal.a
