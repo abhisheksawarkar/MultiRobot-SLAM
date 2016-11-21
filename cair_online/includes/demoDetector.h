@@ -251,6 +251,15 @@ void demoDetector<TVocabulary, TDetector, TDescriptor>::run
   string ss,comment,final;
   comment = "\n#loop closure - \n";
   mythread_comm.loop_write_done = false;
+
+
+// int main(int argc, char const *argv[])
+// {
+//   /* code */
+//   return 0;
+// }
+
+
   // go
   for(unsigned int i = 0; i < filenames.size(); ++i)
   {
